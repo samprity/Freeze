@@ -72,12 +72,12 @@
 
         <!-- Portfolio Item Row -->
         <div class="row">
-            <div id="img1">
-                <div class="col-md-3" >
+            <div id="img1" class="hide">
+                <div class="col-md-4" >
                     <img class="img-responsive" src="https://s-media-cache-ak0.pinimg.com/736x/74/16/15/741615c1d18a7c42125788a486a28158.jpg" alt="">
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <button type="button" class="btn btn-success firstPicButton">Like</button>
                     <button type="button" class="btn btn-danger firstPicButton">Unlike</button>
                </div>
@@ -102,7 +102,16 @@
                     <button type="button" class="btn btn-danger thirdPicButton">Unlike</button>
                </div>
             </div>
+            <div id="targetDiv">
+                <div class="col-md-4" >
+                    <img id = "targetImg" class="img-responsive" src="" alt="">
+                </div>
 
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-success nextButton">Like</button>
+                    <button type="button" class="btn btn-danger nextButton">Unlike</button>
+               </div>
+            </div>
         </div>
         <!-- /.row -->
 
@@ -110,28 +119,37 @@
         <div class="row hide" id="trending-page" >
 
             <div class="col-lg-12">
+                <div class="alert alert-success">
+                    <strong>You have earned another freeze!</strong> </br>
+                    Number of freezes available : 1
+                </div>
                 <h3 class="page-header">Trending items</h3>
+                <div class="alert alert-danger">
+                    <span id="timerText"></span>
+                </div>
             </div>
 
             <div class="col-sm-3 col-xs-6">
                 <a href="#">
                     <img class="img-responsive portfolio-item" src="https://pstops.com/wp-content/uploads/2016/05/summer-tops-03.jpg" alt="">
                 </a>
-                <p>High : 20$   Low : 16$   Trending : 17$</p>
+                <p>High : 25$   Low : 18$   Trending : 19$</p>
                 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#freezeWindow">Freeze</button>
             </div>
-            <div class="col-sm-3 col-xs-6">
-                <a href="#">
-                    <img class="img-responsive portfolio-item" src="http://g01.a.alicdn.com/kf/HTB1swfSHVXXXXbKXXXXq6xXFXXXG/2015-Brand-New-Summer-Women-Chiffon-Top-Blouse-font-b-Pintuck-b-font-Neckline-Chiffon-Vest.jpg" alt="">
-                </a>
-                <p>High : 20$   Low : 16$   Trending : 17$</p>
-                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#freezeWindow">Freeze</button>
-            </div>
+
             <div class="col-sm-3 col-xs-6">
                 <a href="#">
                     <img class="img-responsive portfolio-item" src="https://s-media-cache-ak0.pinimg.com/originals/90/73/37/90733705597f84e3be09cd3b11dd2a0c.jpg" alt="">
                 </a>
-                <p>High : 20$   Low : 16$   Trending : 17$</p>
+                <p>High : 50$   Low : 35$   Trending : 45.60$</p>
+                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#freezeWindow">Freeze</button>
+            </div>
+
+            <div class="col-sm-3 col-xs-6">
+                <a href="#">
+                    <img class="img-responsive portfolio-item" src="http://g01.a.alicdn.com/kf/HTB1swfSHVXXXXbKXXXXq6xXFXXXG/2015-Brand-New-Summer-Women-Chiffon-Top-Blouse-font-b-Pintuck-b-font-Neckline-Chiffon-Vest.jpg" alt="">
+                </a>
+                <p>High : 40$   Low : 35$   Trending : 37$</p>
                 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#freezeWindow">Freeze</button>
             </div>
 
@@ -183,24 +201,48 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
     <script>
-        $(".firstPicButton").click(function(){
-            $("#img1").addClass('hide');
-            $("#img2").removeClass('hide');
+        var dummyImages = [
+            "https://s-media-cache-ak0.pinimg.com/originals/90/73/37/90733705597f84e3be09cd3b11dd2a0c.jpg",
+            "http://g01.a.alicdn.com/kf/HTB1swfSHVXXXXbKXXXXq6xXFXXXG/2015-Brand-New-Summer-Women-Chiffon-Top-Blouse-font-b-Pintuck-b-font-Neckline-Chiffon-Vest.jpg",
+            "http://jandji.ru/wp/wp-content/uploads/2015/01/New-2015-Summer-Fashion-Women-Blouses-Sheer-Shirts-Casual-Ladies-Tops-For-Women-Clothing-Patchwork-Chiffon-300x300.jpg",
+            "https://s-media-cache-ak0.pinimg.com/736x/74/16/15/741615c1d18a7c42125788a486a28158.jpg",
+            "https://s-media-cache-ak0.pinimg.com/736x/a6/a2/90/a6a2903152d5eb03ddd7fffa0b1d7098.jpg",
+            "https://www.hobbs.co.uk/images/products/0213-6346-3821L00-003/0213-6346-3821L00-003_01_1008_1080.jpg"
+
+
+        ]
+        $('#targetImg').attr('src', dummyImages[0]);
+        var g_imageCounter = 0;
+        $(".nextButton").click(function(){
+            if(g_imageCounter === (dummyImages.length - 1)){
+                $("#targetDiv").addClass('hide');
+                $("#headingText").addClass('hide');
+                $("#trending-page").removeClass('hide');
+            } else {
+                g_imageCounter++;
+                $('#targetImg').attr('src', dummyImages[g_imageCounter]);      
+            }
+
         });
-        $(".secondPicButton").click(function(){
-            $("#img2").addClass('hide');
-            $("#img3").removeClass('hide');
-        });
-        $(".thirdPicButton").click(function(){
-            $("#img3").addClass('hide');
-            $("#headingText").addClass('hide');
-            $("#trending-page").removeClass('hide');
-        });
+
         
-        
-        $(".trendingItemButton").click(function(){
-            alert("poop");
-        });
+        var counter = 600;
+        var interval = setInterval(function() {
+            counter--;
+            $("#timerText").text("Deals ending in : " + secondsTimeSpanToHMS(counter));
+            if (counter == 600) {
+                $("#timerText").text("Deals ended");
+                clearInterval(interval);
+            }
+        }, 1000)
+
+        function secondsTimeSpanToHMS(s) {
+            var h = Math.floor(s/3600); //Get whole hours
+            s -= h*3600;
+            var m = Math.floor(s/60); //Get remaining minutes
+            s -= m*60;
+            return h+":"+(m < 10 ? '0'+m : m)+":"+(s < 10 ? '0'+s : s); //zero padding on minutes and seconds
+        }
     </script>
 
 </body>
