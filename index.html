@@ -229,7 +229,7 @@
         var counter = 600;
         var interval = setInterval(function() {
             counter--;
-            $("#timerText").text("Deals ending in : " + secondsTimeSpanToHMS(counter));
+            $("#timerText").text("Clock is ticking! Deals ending in : " + secondsTimeSpanToHMS(counter));
             if (counter == 600) {
                 $("#timerText").text("Deals ended");
                 clearInterval(interval);
